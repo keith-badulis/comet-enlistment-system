@@ -1,0 +1,52 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Student Enlistment{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Bootstrap 4-->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}"/>
+
+    <!--custom css-->
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}"/>
+</head>
+<body>
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
+    <ul class="navbar-nav flex-row">
+        <li class="nav-item text-nowrap mx-3">
+            <a class="nav-link" href="#">Admin</a>
+        </li>
+        <li class="nav-item text-nowrap mx-3">
+            <a class="nav-link" href="#">Sign out</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        {% block body %}
+            <div role="main" class="col-12 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group mr-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            <span data-feather="calendar"></span>
+                            This week
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+</div>
+</body>
+</html>
+
+
