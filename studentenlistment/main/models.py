@@ -13,7 +13,7 @@ class College(models.Model):
 class Program(models.Model):
     name = models.CharField(max_length=50)
     short = models.CharField(max_length=10)
-    college = models.OneToOneField(College, on_delete=models.SET_NULL)
+    college = models.OneToOneField(College, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
@@ -23,7 +23,6 @@ class Course(models.Model):
     course_name = models.CharField(max_length=50)
     subject_area = models.CharField(max_length=2)
     catalog_num = models.CharField(max_length=5)
-    course_id = models.IntegerField(max_length=6)
     units = models.FloatField()
 
     def __str__(self):
@@ -47,13 +46,16 @@ class Class(models.Model):
         (MW, 'Monday and Wednesday'),
         (TH, 'Tuesday and Thursday'),
     )
-    student = models.ForeignKey(User, on_delete=models.CASCADE)
-    course = models.OneToOneField(Course, on_delete=models.SET_NULL)
+    students = models.ManyToManyField(User, blank=True)
+    course = models.OneToOneField(Course, null=True, on_delete=models.SET_NULL)
     section_code = models.CharField(max_length=5)
     max_cap = models.IntegerField(default=0)
     start_time = models.TimeField()
     end_time = models.TimeField()
     day = models.IntegerField(choices=DAY_CHOICES)
+
+    def __str__(self):
+        return '%s (%s)' % (self.course, self.section_code)
 
 
 class Profile(models.Model):
@@ -71,4 +73,4 @@ class Profile(models.Model):
     slug = models.SlugField(default='hello-world')
 
     id_number = models.IntegerField(default=0, unique=True)
-    college = models.OneToOneField(College, on_delete=models.CASCADE)
+    college = models.OneToOneField(College, on_delete=models.CASCADE, blank=True, null=True)
