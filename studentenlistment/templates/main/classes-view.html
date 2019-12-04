@@ -21,21 +21,23 @@
                 </thead>
                 <tbody>
                 {% for class in classes_list %}
-                    <form action="{% url 'main:add-class' class.id %}" method="post">
-                        {% csrf_token %}
-                        <tr>
-                            <td>{{ class.course.subject_area }} {{ class.course.catalog_num }}</td>
-                            <td>{{ class.course }}</td>
-                            <td>{{ class.section_code }}</td>
-                            <td>{{ class.start_time }} - {{ class.end_time }}</td>
-                            <td>{{ class.students.count }}/{{ class.max_cap }}</td>
-                            <td>
-                                {% if class.students.count < class.max_cap %}
-                                <button class="btn btn-sm btn-outline-secondary" type="submit">Add</button>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    </form>
+                    <tr>
+                        <td>{{ class.course.subject_area }} {{ class.course.catalog_num }}</td>
+                        <td>{{ class.course }}</td>
+                        <td>{{ class.section_code }}</td>
+                        <td>{{ class.start_time }} - {{ class.end_time }}</td>
+                        <td>{{ class.students.count }}/{{ class.max_cap }}</td>
+                        <td>
+                            {% if class.students.count < class.max_cap %}
+                            <form action="{% url 'main:add-class' class.id %}" class="my-0" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-success" type="submit">Add Class</button>
+                            </form>
+                            {% else %}
+                                <button class="btn btn-sm btn-outline-success disabled">Add Class</button>
+                            {% endif %}
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

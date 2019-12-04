@@ -16,7 +16,7 @@ def index(request):
     return render(request, 'main/index.html', context)
 
 
-def classes_view(request):
+def list_class(request):
     classes_list = Class.objects.exclude(students=request.user)
     context = {
         'classes_list': classes_list
@@ -29,6 +29,11 @@ def add_class(request, class_id):
     my_class.students.add(request.user)
     return HttpResponseRedirect(reverse('main:index'))
 
+
+def delete_class(request, class_id):
+    my_class = get_object_or_404(Class, pk=class_id)
+    my_class.students.remove(request.user)
+    return HttpResponseRedirect(reverse('main:index'))
 
 
 

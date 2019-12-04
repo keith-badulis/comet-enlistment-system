@@ -14,7 +14,7 @@ class College(models.Model):
 class Program(models.Model):
     name = models.CharField(max_length=50)
     short = models.CharField(max_length=10)
-    college = models.OneToOneField(College, null=True, on_delete=models.SET_NULL)
+    college = models.ForeignKey(College, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
@@ -27,7 +27,7 @@ class Course(models.Model):
     units = models.FloatField()
 
     def __str__(self):
-        return self.course_name
+        return self.subject_area + self.catalog_num + ": " + self.course_name
 
 
 class Class(models.Model):
@@ -55,6 +55,10 @@ class Class(models.Model):
     end_time = models.TimeField()
     day = models.IntegerField(choices=DAY_CHOICES)
     students = models.ManyToManyField(User, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Classes'
+        unique_together = ('course', 'section_code')
 
     def __str__(self):
         return '%s (%s)' % (self.course, self.section_code)
