@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Count
 
 
 class College(models.Model):
@@ -46,13 +47,14 @@ class Class(models.Model):
         (MW, 'Monday and Wednesday'),
         (TH, 'Tuesday and Thursday'),
     )
-    students = models.ManyToManyField(User, blank=True)
-    course = models.OneToOneField(Course, null=True, on_delete=models.SET_NULL)
+    # students = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, null=True, on_delete=models.SET_NULL)
     section_code = models.CharField(max_length=5)
     max_cap = models.IntegerField(default=0)
     start_time = models.TimeField()
     end_time = models.TimeField()
     day = models.IntegerField(choices=DAY_CHOICES)
+    students = models.ManyToManyField(User, blank=True)
 
     def __str__(self):
         return '%s (%s)' % (self.course, self.section_code)

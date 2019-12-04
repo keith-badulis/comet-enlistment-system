@@ -2,18 +2,39 @@
 
 {% block body %}
     <div role="main" class="col-12 px-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Dashboard</h1>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+            <h1 class="h2">Your Classes</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group mr-2">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'main:classes-view' %}">Add Classes</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="#">Drop Classes</a>
                 </div>
-                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                    <span data-feather="calendar"></span>
-                    This week
-                </button>
             </div>
         </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>Course Code</th>
+                    <th>Name</th>
+                    <th>Section</th>
+                    <th>Time</th>
+                    <th>Capacity</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for class in classes_list %}
+                    <tr>
+                        <td>{{ class.course.subject_area }} {{ class.course.catalog_num }}</td>
+                        <td>{{ class.course }}</td>
+                        <td>{{ class.section_code }}</td>
+                        <td>{{ class.start_time }} - {{ class.end_time }}</td>
+                        <td>{{ class.students.count }}/{{ class.max_cap }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
+
 {% endblock %}
