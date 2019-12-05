@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Count
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class College(models.Model):
@@ -76,7 +78,13 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
     type = models.IntegerField(default=0, choices=USER_TYPE_CHOICES)
-    slug = models.SlugField(default='hello-world')
 
     id_number = models.IntegerField(default=0, unique=True)
-    college = models.OneToOneField(College, on_delete=models.CASCADE, blank=True, null=True)
+    college = models.ForeignKey(College, on_delete=models.CASCADE, blank=True, null=True)
+
+
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()

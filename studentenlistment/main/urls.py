@@ -11,4 +11,6 @@ urlpatterns = [
     path('class/', views.list_class, name='list-class'),
     path('class/<int:class_id>/add', views.add_class, name='add-class'),
     path('class/<int:class_id>/delete', views.delete_class, name='delete-class'),
+    path('logout-page/', views.logout_page, name='logout-page'),
+    path('signup/', views.signup, name='signup-page'),
 ]
