@@ -4,11 +4,6 @@ Amino Acids is a Django web app that simulates a simple online student enlistmen
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-
-### Prerequisites
-
 Before running the server, the following python packages must first be installed:
 
 Django and django-admin:
@@ -52,7 +47,7 @@ $ python manage.py flush
 
 After clearing the db, a new administrator (superuser) must first be created to 
 ensure proper adminstrator functions in the future.
-This admin may be deleted when all other admins are present. Type in the 
+This admin may be deleted when other admins are present. Type in the 
 following command:
 
 ```
