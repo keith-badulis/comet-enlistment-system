@@ -26,7 +26,8 @@ $ pip install django-widget-tweaks
 
 ## Running the server
 
-To start the server, type the following command while in the root directory:
+To start the server, type the following command while in the 'studentenlistment' 
+directory (root django project folder):
 
 ```
 $ python manage.py runserver 8000
