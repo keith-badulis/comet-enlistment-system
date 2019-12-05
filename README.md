@@ -1,4 +1,4 @@
-# Project Title
+# Amino Acids
 
 Amino Acids is a Django web app that simulates a simple online student enlistment system
 
