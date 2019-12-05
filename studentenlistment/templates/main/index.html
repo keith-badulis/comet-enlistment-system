@@ -21,6 +21,7 @@
                     <tr>
                         <th>Course Code</th>
                         <th>Name</th>
+                        <th>Prerequisite/s</th>
                         <th>Section</th>
                         <th>Time</th>
                         <th>Capacity</th>
@@ -32,6 +33,7 @@
                         <tr>
                             <td>{{ class.course.subject_area }} {{ class.course.catalog_num }}</td>
                             <td>{{ class.course }}</td>
+                            <td>{{ class.course.prereqs_list }}</td>
                             <td>{{ class.section_code }}</td>
                             <td>{{ class.start_time }} - {{ class.end_time }}</td>
                             <td>{{ class.students.count }}/{{ class.max_cap }}</td>

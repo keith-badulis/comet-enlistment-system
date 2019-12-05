@@ -13,6 +13,7 @@
                 <tr>
                     <th>Course Code</th>
                     <th>Name</th>
+                    <th>Prerequisite/s</th>
                     <th>Section</th>
                     <th>Time</th>
                     <th>Capacity</th>
@@ -24,17 +25,18 @@
                     <tr>
                         <td>{{ class.course.subject_area }} {{ class.course.catalog_num }}</td>
                         <td>{{ class.course }}</td>
+                        <td>{{ class.course.prereqs_list }}</td>
                         <td>{{ class.section_code }}</td>
                         <td>{{ class.start_time }} - {{ class.end_time }}</td>
                         <td>{{ class.students.count }}/{{ class.max_cap }}</td>
                         <td>
-                            {% if class.students.count < class.max_cap %}
-                            <form action="{% url 'main:add-class' class.id %}" class="my-0" method="post">
-                                {% csrf_token %}
-                                <button class="btn btn-sm btn-success" type="submit">Add Class</button>
-                            </form>
+                            {% if class.students.count >= class.max_cap %}
+                                <button class="btn btn-sm w-75 btn-outline-success disabled">Class is full</button>
                             {% else %}
-                                <button class="btn btn-sm btn-outline-success disabled">Add Class</button>
+                                <form action="{% url 'main:add-class' class.id %}" class="my-0" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn btn-sm w-75 btn-success" type="submit">Add Class</button>
+                                </form>
                             {% endif %}
                         </td>
                     </tr>

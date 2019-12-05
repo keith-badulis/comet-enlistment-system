@@ -23,17 +23,20 @@ def index(request):
 
 
 @login_required
-def list_class(request):
+def list_available_classes(request):
     classes_list = Class.objects.exclude(students=request.user)
     context = {
         'classes_list': classes_list
     }
-    return render(request, 'main/classes-view.html', context)
+    return render(request, 'main/available-classes-view.html', context)
 
 
 @login_required
 def add_class(request, class_id):
     my_class = get_object_or_404(Class, pk=class_id)
+    # student = User.objects.get(username=request.user.username)
+    # for c in student.class_set:
+    #     if c.
     my_class.students.add(request.user)
     return HttpResponseRedirect(reverse('main:index'))
 
@@ -85,15 +88,3 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/login.html', {'form': form})
-
-
-# def add_class(request):
-#     if request.method == 'POST':
-#         print('post')
-#     else:
-#         classes_list = Class.objects.exclude(students=request.user)
-#         context = {
-#             'classes_list': classes_list
-#         }
-#         return render(request, 'main/index.html', context)
-

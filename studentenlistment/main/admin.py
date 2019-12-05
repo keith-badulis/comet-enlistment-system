@@ -11,8 +11,8 @@ class ProfileInLine(admin.StackedInline):
 
 
 class CustomUserAdmin(UserAdmin):
-    list_display =('username', 'first_name', 'last_name', 'id_number', 'type', 'college')
-    inlines =[ProfileInLine]
+    list_display = ('username', 'first_name', 'last_name', 'id_number', 'type', 'college')
+    inlines = [ProfileInLine]
 
     def id_number(self, obj):
         return obj.profile.id_number

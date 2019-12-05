@@ -26,7 +26,11 @@ class Course(models.Model):
     course_name = models.CharField(max_length=50)
     subject_area = models.CharField(max_length=2)
     catalog_num = models.CharField(max_length=5)
+    prerequisites = models.ManyToManyField('self', blank=True, symmetrical=False)
     units = models.FloatField()
+
+    def prereqs_list(self):
+        return ', '.join([p.subject_area+p.catalog_num for p in self.prerequisites.all()])
 
     def __str__(self):
         return self.subject_area + self.catalog_num + ": " + self.course_name
