@@ -80,15 +80,34 @@ class Profile(models.Model):
         (STUDENT, 'student'),
     )
 
-    user = models.OneToOneField(User, unique=True, null=False, db_index=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
     type = models.IntegerField(default=0, choices=USER_TYPE_CHOICES)
 
     id_number = models.IntegerField(default=0, unique=True)
     college = models.ForeignKey(College, on_delete=models.CASCADE, blank=True, null=True)
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if getattr(self, 'type') == self.ADMIN:
+            User.objects.filter(profile=self).update(is_superuser=True, is_staff=True)
+        else:
+            User.objects.filter(profile=self).update(is_superuser=False, is_staff=False)
 
-@receiver(post_save, sender=User)
-def update_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-    instance.profile.save()
+        return super().save()
+
+
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
+#
+#
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     print(instance.profile.user_id)
+#     if getattr(instance.profile, 'type') == instance.profile.ADMIN:
+#         User.objects.filter(pk=instance.pk).update(is_superuser=True, is_staff=True)
+#     else:
+#         User.objects.filter(pk=instance.pk).update(is_superuser=False, is_staff=False)
+
+    # instance.profile.save()

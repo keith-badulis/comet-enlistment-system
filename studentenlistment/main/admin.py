@@ -11,6 +11,11 @@ class ProfileInLine(admin.StackedInline):
 
 
 class CustomUserAdmin(UserAdmin):
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        (('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
+    )
+
     list_display = ('username', 'first_name', 'last_name', 'id_number', 'type', 'college')
     inlines = [ProfileInLine]
 

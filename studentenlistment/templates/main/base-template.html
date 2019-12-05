@@ -16,9 +16,11 @@
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-2" href="{% url 'main:index' %}">Amino Acids</a>
     <ul class="navbar-nav flex-row">
+        {% if request.user.is_superuser %}
         <li class="nav-item text-nowrap mx-3">
             <a class="nav-link" href="/admin">Admin</a>
         </li>
+        {% endif %}
         <li class="nav-item text-nowrap mx-3">
             <a class="nav-link" href="{% url 'main:logout-page' %}">Sign out</a>
         </li>

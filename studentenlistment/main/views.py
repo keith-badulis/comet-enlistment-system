@@ -56,7 +56,7 @@ def logout_page(request):
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
-    email = forms.EmailField(max_length=254, help_text='Input a valid DLSU email address.')
+    email = forms.EmailField(max_length=254, help_text='Input a valid DLSU email address.', required=True)
     id_number = forms.CharField(max_length=8, required=True)
     college = forms.ModelChoiceField(queryset=College.objects.all(), required=True)
 
@@ -87,4 +87,4 @@ def signup(request):
             return redirect('main:index')
     else:
         form = SignUpForm()
-    return render(request, 'registration/login.html', {'form': form})
+    return render(request, 'registration/signup.html', {'form': form})
