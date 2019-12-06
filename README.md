@@ -4,6 +4,8 @@ Amino Acids is a Django web app that simulates a simple online student enlistmen
 
 ## Getting Started
 
+This project is built with Python 3.8.0 and Django 2.2.5. Please use these
+versions to ensure full compatibility.
 Before running the server, the following python packages must first be installed:
 
 Django and django-admin:
